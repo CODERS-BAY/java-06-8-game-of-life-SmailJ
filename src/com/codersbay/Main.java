@@ -89,20 +89,22 @@ public class Main {
             for (int l = 1; l < habitat.length - 1; l++) {
                 for (int m = 1; m < habitat.length - 1; m++) {
                     int aliveNeighbours = 0;
-                    for (int i = -1; i <= 1; i++)
-                        for (int j = -1; j <= 1; j++)
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
                             aliveNeighbours += habitat[l + i][m + j] ? 1 : 0;
-
+                        }
+                    }
                     aliveNeighbours -= habitat[l][m] ? 1 : 0;
 
-                    if ((habitat[l][m]) && (aliveNeighbours < 2))
+                    if (isAlive(habitat, l, m) && (aliveNeighbours < 2)) {
                         future[l][m] = false;
-                    else if ((habitat[l][m]) && (aliveNeighbours > 3))
+                    } else if (isAlive(habitat, l, m) && (aliveNeighbours > 3)) {
                         future[l][m] = false;
-                    else if ((!habitat[l][m]) && (aliveNeighbours == 3))
+                    } else if (!isAlive(habitat, l, m) && (aliveNeighbours == 3)) {
                         future[l][m] = true;
-                    else
+                    } else {
                         future[l][m] = habitat[l][m];
+                    }
                 }
             }
 
@@ -119,5 +121,9 @@ public class Main {
             }
             habitat = future;
         }
+    }
+
+    public static boolean isAlive(boolean habitat[][], int row, int col) {
+        return habitat[row][col];
     }
 }
